@@ -55,4 +55,11 @@ class TransactionController extends Controller
     		}
     	}
     }
+
+    public function deleteTransaction(Request $request) {
+        $transaction = Transaction::where('id', $request->id)->first();
+        $transaction->delete();
+        $message = "Transaksi berhasil dihapus";
+        return redirect('transaction')->with('success', $message);
+    }
 }

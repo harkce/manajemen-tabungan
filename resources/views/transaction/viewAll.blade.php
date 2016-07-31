@@ -71,8 +71,28 @@ $(document).ready(function() {
 							<th>Nama Siswa</th>
 							<th>Jenis Transaksi</th>
 							<th>Banyaknya</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
+					<tbody>
+						@foreach($transactions as $transaction)
+						<tr>
+							<th>{{ $transaction->created_at->format('d M Y') }}</th>
+							<th>{{ $transaction->student->id }}</th>
+							<th>{{ $transaction->student->name }}</th>
+							<th>@if ($transaction->type) Setor @else Ambil @endif</th>
+							<th>{{ $transaction->amount }}</th>
+							<th>
+								<form method="post" action="{{ url('transaction') }}" class="noline">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="_method" value="delete">
+									<input type="hidden" name="id" value="{{ $transaction->id }}">
+									<button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Hapus"><i class="fa fa-trash"></i></button>
+								</form>
+							</th>
+						</tr>
+						@endforeach
+					</tbody>
 					<tfoot>
 						<tr>
 							<th>Tanggal</th>
@@ -82,17 +102,6 @@ $(document).ready(function() {
 							<th>Banyaknya</th>
 						</tr>
 					</tfoot>
-					<tbody>
-						@foreach($transactions as $transaction)
-						<tr>
-							<th>{{ $transaction->created_at->format('d M Y') }}</th>
-							<th>{{ $transaction->student->id }}</th>
-							<th>{{ $transaction->student->name }}</th>
-							<th>@if ($transaction->type) Setor @else Ambil @endif</th>
-							<th>{{ $transaction->amount }}</th>
-						</tr>
-						@endforeach
-					</tbody>
 				</table>
 			</div>
 		</div>

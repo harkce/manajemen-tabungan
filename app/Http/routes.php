@@ -51,6 +51,9 @@ Route::get('/transaction/deposit', 'TransactionController@getDeposit');
 Route::get('/transaction/withdrawal', 'TransactionController@getWithDrawal');
 Route::get('/transaction/add', 'TransactionController@viewAdd');
 
+// delete transactions
+Route::delete('/transaction', 'TransactionController@deleteTransaction');
+
 // setting
 Route::get('/setting', 'UserController@viewSetting');
 
